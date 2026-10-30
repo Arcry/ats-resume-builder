@@ -1,13 +1,19 @@
+const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
-
-const DateRange = ({ startYear, endYear, id }) => {
-    const start = new Date(startYear);
-    const end = new Date(endYear);
-    return (
-        <p id={id} className="sub-content">
-            {start.toLocaleString('default', { month: 'short' })}, {start.getFullYear()} - {end != "Invalid Date" ? end.toLocaleString('default', { month: 'short' }) + ', ' + end.getFullYear() : 'Present'}
-        </p>
-    );
+const formatMonthYear = (value) => {
+  if (!value) return null;
+  const d = new Date(value);
+  if (Number.isNaN(d.getTime())) return null;
+  return `${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
 };
 
+export const formatDateRange = (startYear, endYear) => {
+  const start = formatMonthYear(startYear);
+  const end = formatMonthYear(endYear) ?? "Present";
+  return start ? `${start} - ${end}` : "";
+};
+
+const DateRange = ({ startYear, endYear, id }) => (
+  <p id={id} className="sub-content">{formatDateRange(startYear, endYear)}</p>
+);
 export default DateRange;

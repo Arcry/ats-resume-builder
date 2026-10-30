@@ -1,116 +1,124 @@
+// Sample resume shown on first load. Fictional person: example.com / example.org are reserved
+// domains (RFC 2606) and +44 20 7946 0xxx is a UK range reserved for fiction.
 const DefaultResumeData = {
-  name: "ZAID ADIL",
+  name: "Alex Morgan",
   position: "Full Stack Developer",
-  contactInformation: "+91 123456789",
-  email: "hothead01th@gmail.com",
-  address: "Kashmir, India",
+  contactInformation: "+44 20 7946 0123",
+  email: "alex.morgan@example.com",
+  address: "London, UK",
   profilePicture: "",
   socialMedia: [
     {
       socialMedia: "Github",
-      link: "github.com//HOTHEAD01TH",
+      link: "example.com/github/alexmorgan",
     },
     {
       socialMedia: "LinkedIn",
-      link: "linkedin.com/in/hothead01th",
+      link: "example.com/linkedin/alexmorgan",
     },
     {
       socialMedia: "Website",
-      link: "hothead.vercel.app",
+      link: "alexmorgan.example.org",
     },
   ],
-  summary: "A Full Stack Developer with 3 years of experience in web development, specializing in building dynamic and responsive web applications. Passionate about Web3 and DevOps, with a keen interest in decentralized technologies and automation in the development process. Skilled in both front-end and back-end development, with a focus on delivering efficient and scalable solutions.",
+  summary:
+    "A Full Stack Developer with 3 years of experience building and shipping web applications for small and mid-sized teams. Comfortable across the stack, from React front ends to Node.js services and PostgreSQL schemas, with a strong interest in developer tooling and automated delivery. Focused on readable code, measurable improvements and clear communication with product and design.",
   education: [
     {
-      "school": "Kashmir University",
-      "degree": "Bachelors in Computer Application",
-      "startYear": "2022-10-01",
-      "endYear": "2025-07-01"
+      school: "Example University",
+      degree: "BSc Computer Science",
+      startYear: "2017-09-01",
+      endYear: "2020-06-01",
     },
   ],
   workExperience: [
     {
-      "company": "Techflare",
-      "position": "Full Stack Developer",
-      "description": "Worked as a full stack developer on multiple client projects, focusing on building scalable web applications using modern technologies. Collaborated with cross-functional teams to deliver high-quality solutions.",
-      "keyAchievements": "Successfully delivered 5+ client projects with 100% satisfaction rate\nReduced application load time by 40% through optimization techniques",
-      "startYear": "2023-10-01",
-      "endYear": "2024-03-01"
+      company: "Northwind Software",
+      position: "Full Stack Developer",
+      description:
+        "Worked on a customer portal and internal tools for a logistics client, building features end to end with React, Node.js and PostgreSQL. Collaborated with product managers and designers to turn requirements into shipped increments every two weeks.",
+      keyAchievements:
+        "Delivered 6 client-facing features on schedule across three releases\nReduced portal page load time by 40% by splitting bundles and caching API responses",
+      startYear: "2022-01-01",
+      endYear: "2024-06-01",
     },
     {
-      "company": "Techbug",
-      "position": "Frontend Developer Intern",
-      "description": "Contributed to the development of user interfaces for various web applications. Worked closely with senior developers to implement responsive designs and improve user experience.",
-      "keyAchievements": "Developed responsive web interfaces using React and Tailwind CSS\nCollaborated with the design team to implement pixel-perfect UI components",
-      "startYear": "2023-06-01",
-      "endYear": "2023-09-01"
-    }
+      company: "Acme Digital",
+      position: "Frontend Developer Intern",
+      description:
+        "Built user interfaces for marketing sites and a small e-commerce application. Worked with senior developers to implement responsive layouts and improve accessibility.",
+      keyAchievements:
+        "Implemented responsive components with React and Tailwind CSS\nRaised the Lighthouse accessibility score of the main site from 71 to 96",
+      startYear: "2021-06-01",
+      endYear: "2021-12-01",
+    },
   ],
   projects: [
-   
     {
-      "name": "AI Resume Maker",
-      "description": "Developed an intelligent resume builder using Next.js with AI-powered content suggestions, multiple templates, and real-time preview functionality. Integrated with Google's Gemini API for smart content optimization.",
-      "keyAchievements": "Implemented drag-and-drop functionality for section reordering\nIntegrated AI-powered content suggestions using Gemini API",
-      "startYear": "2024-02-20",
-      "endYear": "2024-03-15",
-      "link": "https://github.com/HOTHEAD01TH/free-resume-maker"
+      name: "Resume Builder",
+      description:
+        "Built a resume builder with Next.js: a form on the left, a live preview on the right and PDF export through the browser print dialog. Added optional AI suggestions through an OpenAI-compatible API.",
+      keyAchievements:
+        "Implemented drag-and-drop reordering of resume sections\nAdded a template switcher with colour presets stored in the resume JSON",
+      startYear: "2024-02-01",
+      endYear: "2024-04-01",
+      link: "https://example.com/alexmorgan/resume-builder",
     },
     {
-      "name": "Paytm",
-      "description": "Created a monorepo-based banking application using Express and AWS services. Implemented microservices architecture with features like transaction management, account services, and real-time notifications.",
-      "keyAchievements": "Designed and implemented microservices architecture using Express\nImplemented real-time transaction notifications using AWS SNS",
-      "startYear": "2024-03-20",
-      "endYear": "2024-04-15",
-      "link": "https://github.com/HOTHEAD01TH/paytm-advanced"
-    }
+      name: "Expense Tracker",
+      description:
+        "Created a personal finance application with Express and PostgreSQL: accounts, categories, recurring transactions and monthly reports. Deployed with Docker and GitHub Actions.",
+      keyAchievements:
+        "Designed the data model and REST API for accounts and transactions\nSet up CI with automated tests and container builds on every push",
+      startYear: "2024-05-01",
+      endYear: "2024-07-01",
+      link: "https://example.com/alexmorgan/expense-tracker",
+    },
   ],
   skills: [
     {
       title: "Technical Skills",
       skills: [
-        "React", "Next.js", "TypeScript", "Tailwind CSS", "MongoDB", "PostgreSQL", 
-        "Express", "Python", "Java", "Docker", "AWS", "Kubernetes", "Jenkins",
-        "Firebase", "Redis", "Node.js", "Git", "REST API"
-      ]
+        "React", "Next.js", "TypeScript", "Tailwind CSS", "Node.js", "Express",
+        "PostgreSQL", "MongoDB", "Redis", "Python", "Docker", "AWS", "GitHub Actions",
+        "Git", "REST API", "GraphQL", "Jest", "Playwright",
+      ],
     },
     {
       title: "Soft Skills",
       skills: [
-        "Collaboration", "Problem-solving", "Communication", "Time management", "Result-oriented"
-      ]
+        "Collaboration", "Problem-solving", "Communication", "Time management", "Result-oriented",
+      ],
     },
     {
       title: "Additional Skills",
-      skills: [
-        "CI/CD", "Microservices", "System Design", "Cloud Architecture"
-      ] 
-    }
+      skills: ["CI/CD", "Microservices", "System Design", "Cloud Architecture"],
+    },
   ],
-  languages: [
-    "English",
-    "Hindi",
-    "Urdu",
-    "Kashmiri",
-  ],
+  languages: ["English", "Spanish", "French"],
   certifications: [
     {
-      name: "Java and Object-Oriented Programming",
-      issuer: "University of Pennsylvania"
+      name: "Cloud Fundamentals",
+      issuer: "Example Cloud Academy",
     },
     {
-      name: "Introduction to Cloud Computing",
-      issuer: "IBM"
+      name: "Full Stack Web Development",
+      issuer: "Example Bootcamp",
     },
     {
-      name: "Full Stack Development",
-      issuer: "john hopkins university"
+      name: "Agile Project Management",
+      issuer: "Example Institute",
     },
     {
-      name: "AI Primer Course",
-      issuer: "emly labs"
-    }
+      name: "Introduction to Machine Learning",
+      issuer: "Example Online Courses",
+    },
   ],
+  theme: {
+    template: "ats",
+    accent: "",
+    background: "",
+  },
 };
 
 export default DefaultResumeData;

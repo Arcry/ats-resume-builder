@@ -5,6 +5,7 @@ import { FaExternalLinkAlt, FaGithub, FaLinkedin, FaTwitter, FaFacebook, FaInsta
 import { CgWebsite } from "react-icons/cg";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Certification from "./Certification";
+import { formatDateRange } from "../utility/DateRange";
 
 const TemplateTwo = ({ 
   namedata, 
@@ -33,11 +34,13 @@ const TemplateTwo = ({
     { id: "education", title: "Education", content: educationdata },
     { id: "projects", title: "Projects", content: projectsdata },
     { id: "experience", title: "Work Experience", content: workExperiencedata },
-    { id: "skills", title: "Technical Skills", content: skillsdata },
+    { id: "skills", title: "Technical Skills", content: skillsdata.find(skill => skill.title === "Technical Skills")?.skills || [] },
     { id: "softskills", title: "Soft Skills", content: skillsdata.find(skill => skill.title === "Soft Skills")?.skills || [] },
-    { id: "languages", title: "Languages", content: languagesdata },
-    { id: "certifications", title: "Certifications", content: certificationsdata }
+    { id: "languages", title: "Languages", content: languagesdata || [] },
+    { id: "certifications", title: "Certifications", content: certificationsdata || [] }
   ];
+
+  const hasContent = (content) => Array.isArray(content) ? content.length > 0 : Boolean(content?.trim());
 
   const orderedSections = sectionOrder
     .map(id => sections.find(section => section.id === id))
@@ -77,7 +80,7 @@ const TemplateTwo = ({
                 <p className="content font-semibold">{edu.school}</p>
                 <p className="content">{edu.degree}</p>
                 <p className="sub-content font-medium text-gray-600">
-                  {new Date(edu.startYear).getFullYear()} - {new Date(edu.endYear).getFullYear()}
+                  {formatDateRange(edu.startYear, edu.endYear)}
                 </p>
               </div>
             ))}
@@ -115,7 +118,7 @@ const TemplateTwo = ({
                               )}
                             </div>
                             <p className="sub-content font-medium text-gray-600">
-                              {new Date(project.startYear).getFullYear()} - {new Date(project.endYear).getFullYear()}
+                              {formatDateRange(project.startYear, project.endYear)}
                             </p>
                           </div>
                           <p className="content">{project.description}</p>
@@ -159,7 +162,7 @@ const TemplateTwo = ({
                               <span>{work.position}</span>
                             </p>
                             <p className="sub-content font-medium text-gray-600">
-                              {new Date(work.startYear).getFullYear()} - {new Date(work.endYear).getFullYear()}
+                              {formatDateRange(work.startYear, work.endYear)}
                             </p>
                           </div>
                           <p className="content">{work.description}</p>
@@ -179,7 +182,7 @@ const TemplateTwo = ({
           <div>
             <h2 className="section-title border-b-2 border-gray-300 mb-1">Technical Skills</h2>
             <p className="content">
-              {skillsdata.find(skill => skill.title === "Technical Skills")?.skills.join(", ")}
+              {section.content.join(", ")}
             </p>
           </div>
         );
@@ -228,7 +231,7 @@ const TemplateTwo = ({
   }
 
   return (
-    <div className="w-full h-full bg-white p-4">
+    <div className="w-full h-full resume-page p-4">
       {/* Header Section */}
       <div className="text-center mb-2">
         <h1 className="name">{namedata}</h1>
@@ -279,9 +282,9 @@ const TemplateTwo = ({
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
-                      className={`mb-2 ${snapshot.isDragging ? "bg-gray-50" : ""}`}
+                      className={`${hasContent(section.content) ? "mb-2" : ""} ${snapshot.isDragging ? "bg-gray-50" : ""}`}
                     >
-                      {renderSection(section)}
+                      {hasContent(section.content) && renderSection(section)}
                     </div>
                   )}
                 </Draggable>
