@@ -1,6 +1,8 @@
-# Free Resume Maker
+# Free Resume Maker: ATS-friendly resume builder with AI suggestions
 
-A local, AI-assisted, ATS-friendly resume builder: fill in a form, watch the live preview, export to PDF through the browser print dialog. Runs locally on your machine; the resume is kept in a JSON file you save yourself.
+Free, open-source resume (CV) builder that runs locally. Fill in a form, watch the live preview and export a text-based PDF that applicant tracking systems (ATS) and AI resume checkers can parse. AI suggestions for every text field work with OpenAI, Anthropic Claude, Google Gemini, OpenRouter, Groq, DeepSeek, Mistral, local Ollama / LM Studio or any OpenAI-compatible API. No account, no tracking: the resume is kept in a JSON file you save yourself.
+
+![Resume builder: form on the left, live preview on the right](docs/screenshots/builder.jpg)
 
 ## Key features
 
@@ -13,13 +15,29 @@ A local, AI-assisted, ATS-friendly resume builder: fill in a form, watch the liv
 - **Export to PDF** with the browser print dialog
 - **Run as a Mac app**: production build served by a launchd agent on port 3030 and a Dock icon via Safari or Chrome (see below)
 
-## Templates
+## Screenshots
 
-Sample resume (fictional) in the three templates; *Classic* with the Navy accent, *Single column* with the Teal accent and Cream background.
+Template, colours and AI provider are chosen in the form:
+
+![Template & colours and AI assistant blocks](docs/screenshots/settings.jpg)
+
+Sample resume (fictional) in the three templates; *Classic* with the Navy accent, *Single column* with the Teal accent and Cream background:
 
 | ATS | Classic | Single column |
 |---|---|---|
-| ![ATS template](docs/screenshots/ats.jpg) | ![Classic template](docs/screenshots/classic.jpg) | ![Single column template](docs/screenshots/single-column.jpg) |
+| ![ATS resume template](docs/screenshots/ats.jpg) | ![Classic resume template](docs/screenshots/classic.jpg) | ![Single column resume template](docs/screenshots/single-column.jpg) |
+
+## Why the PDF is ATS-friendly
+
+ATS and AI resume checkers read the text layer of the PDF, not the picture. The builder is set up so that this text is clean:
+
+- **Real text, not images**: the PDF comes from the browser print dialog, so every word can be selected, copied and searched
+- **Reading order**: in the *ATS* template the extracted text comes out as name, contacts, summary, then the left column and the right column, each section in one piece; the layout is static (no drag-and-drop), so the order is predictable
+- **Standard section headings**: Summary, Work Experience, Education, Projects, Skills, Languages, Certifications
+- **One date format**: "Oct 2018 - Sep 2022", "Present" for a current role
+- **Plain contacts**: phone, email, location and links are text, not icons only
+
+Check your own file: open the PDF, select all, copy and paste into a plain-text editor. If the text reads in the right order, an ATS will read it too. Disable headers and footers in the print dialog, otherwise the date and URL end up in the text.
 
 ## Built with
 
