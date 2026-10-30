@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <!-- launchd user agent template: serves the production build of free-resume-maker on 127.0.0.1:3030.
+       `npm run app:install` fills in the __NODE__, __NODE_DIR__, __APP_DIR__ and __LOG_DIR__ placeholders
+       and writes the result to ~/Library/LaunchAgents. launchd does not read the user's shell PATH,
+       hence the absolute paths. -->
+  <key>Label</key>
+  <string>local.free-resume-maker</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>__NODE__</string>
+    <string>__APP_DIR__/node_modules/next/dist/bin/next</string>
+    <string>start</string>
+    <string>-H</string>
+    <string>127.0.0.1</string>
+    <string>-p</string>
+    <string>3030</string>
+  </array>
+
+  <key>WorkingDirectory</key>
+  <string>__APP_DIR__</string>
+
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>NEXT_DIST_DIR</key>
+    <string>.next-prod</string>
+    <key>NODE_ENV</key>
+    <string>production</string>
+    <key>PATH</key>
+    <string>__NODE_DIR__:/usr/bin:/bin</string>
+  </dict>
+
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <true/>
+  <key>ThrottleInterval</key>
+  <integer>10</integer>
+
+  <key>StandardOutPath</key>
+  <string>__LOG_DIR__/stdout.log</string>
+  <key>StandardErrorPath</key>
+  <string>__LOG_DIR__/stderr.log</string>
+</dict>
+</plist>

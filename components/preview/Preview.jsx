@@ -5,7 +5,6 @@ import {
   FaFacebook,
   FaInstagram,
   FaYoutube,
-  FaExchangeAlt,
   FaExternalLinkAlt,
 } from "react-icons/fa";
 import { MdEmail, MdLocationOn, MdPhone } from "react-icons/md";
@@ -21,6 +20,8 @@ import dynamic from "next/dynamic";
 import Language from "./Language";
 import Certification from "./Certification";
 import TemplateTwo from "./TemplateTwo";
+import TemplateATS from "./TemplateATS";
+import { TEMPLATES, DEFAULT_THEME, resolveTheme } from "../utility/templates";
 
 const DragDropContext = dynamic(
   () =>
@@ -46,7 +47,16 @@ const Draggable = dynamic(
 
 const Preview = () => {
   const { resumeData, setResumeData } = useContext(ResumeContext);
-  const [currentTemplate, setCurrentTemplate] = useState("template1");
+  const theme = resolveTheme(resumeData.theme);
+  const currentTemplate = TEMPLATES.some((t) => t.id === theme.template)
+    ? theme.template
+    : DEFAULT_THEME.template;
+  // CSS variables read by .resume-page, .name and .section-title in globals.css.
+  // Unset (empty) values fall back to the default look.
+  const themeStyle = {
+    "--resume-accent": theme.accent || undefined,
+    "--resume-bg": theme.background || undefined,
+  };
   
   // Initialize sectionOrder with all sections including certifications
   const defaultSections = [
@@ -157,17 +167,12 @@ const Preview = () => {
 
   return (
     <div className="md:max-w-[60%] sticky top-0 preview rm-padding-print p-6 md:overflow-y-scroll md:h-screen">
-      <button
-        onClick={() => setCurrentTemplate(currentTemplate === "template1" ? "template2" : "template1")}
-        className="absolute top-4 right-4 z-50 p-2 bg-zinc-800 text-white rounded hover:bg-zinc-700 transition-colors exclude-print"
-        title="Switch Template"
-      >
-        <FaExchangeAlt />
-      </button>
-      <A4PageWrapper>
-        <DragDropContext onDragEnd={currentTemplate === "template1" ? onDragEnd : handleTemplateTwoDragEnd}>
-          {currentTemplate === "template1" ? (
-            <div className="w-full h-full bg-white p-4">
+      <A4PageWrapper style={themeStyle}>
+        <DragDropContext onDragEnd={currentTemplate === "template1" ? onDragEnd : currentTemplate === "template2" ? handleTemplateTwoDragEnd : () => {}}>
+          {currentTemplate === "ats" ? (
+            <TemplateATS />
+          ) : currentTemplate === "template1" ? (
+            <div className="w-full h-full resume-page p-4">
               <div className="text-center mb-2">
                 <h1 className="name">{resumeData.name}</h1>
                 <p className="profession">{resumeData.position}</p>
@@ -483,7 +488,7 @@ const Preview = () => {
   );
 };
 
-const A4PageWrapper = ({ children }) => {
+const A4PageWrapper = ({ children, style }) => {
 
   const alertA4Size = () => {
     const preview = document.querySelector(".preview");
@@ -493,7 +498,7 @@ const A4PageWrapper = ({ children }) => {
     }
   };
 
-  return <div className="w-8.5in" onLoad={alertA4Size}>{children}</div>;
+  return <div className="w-8.5in" style={style} onLoad={alertA4Size}>{children}</div>;
 };
 
 export default Preview;

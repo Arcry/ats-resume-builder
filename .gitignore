@@ -11,6 +11,7 @@
 .env
 # next.js
 /.next/
+/.next-prod/
 /out/
 
 # production

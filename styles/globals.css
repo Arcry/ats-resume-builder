@@ -79,6 +79,7 @@
 .name{
     font-size: 20px;
     font-weight: 700;
+    color: var(--resume-accent, currentColor);
 }
 
 .profession{
@@ -99,6 +100,8 @@
 .section-title{
     font-size: 16px;
     font-weight: 700;
+    color: var(--resume-accent, currentColor);
+    border-color: var(--resume-accent, #d1d5db);
 }
 
 .content{
@@ -113,6 +116,16 @@
 
 .i-bold{
     font-weight: 700 !important;
+}
+
+/* Resume sheet. --resume-accent / --resume-bg are set inline on the page wrapper
+   (Preview.jsx) only when a colour is chosen; without them the look is unchanged.
+   print-color-adjust keeps the chosen background in the PDF even when the browser's
+   "Background graphics" option is off. */
+.resume-page {
+    background-color: var(--resume-bg, #ffffff);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
 }
 
 @media print {
@@ -131,16 +144,5 @@
 
     .preview {
         overflow-y: visible !important;
-    }
-
-    .preview::after {
-        content: "Made using : free-next-resume-maker.vercel.app ";
-        position: fixed;
-        bottom: 0;
-        right: 0;
-        opacity: 0.2;
-        font-size: small;
-        text-align: center;
-        z-index: -1;
     }
 }

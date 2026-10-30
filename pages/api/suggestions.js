@@ -1,61 +1,23 @@
-import { getSuggestions } from '../../utils/gemini';
+import { getSuggestions } from "../../utils/ai/suggestions";
+import { AIError } from "../../utils/ai/chat";
 
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ 
-      error: 'Method not allowed',
-      message: 'Only POST requests are accepted' 
-    });
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "METHOD_NOT_ALLOWED", message: "Only POST requests are accepted" });
   }
 
-  const { section, content } = req.body;
-
-  if (!section || !content) {
-    return res.status(400).json({ 
-      error: 'VALIDATION_ERROR',
-      message: 'Missing required fields: section and content' 
-    });
-  }
+  const { section, content, provider, model, baseUrl } = req.body || {};
 
   try {
-    const suggestions = await getSuggestions(section, content);
-    return res.status(200).json({ suggestions });
+    const result = await getSuggestions({ section, content, provider, model, baseUrl });
+    return res.status(200).json(result);
   } catch (error) {
-    console.error('API Error:', error);
-    
-    // Handle specific error types
-    if (error.message.startsWith('CONTENT_ERROR:')) {
-      return res.status(400).json({
-        error: 'CONTENT_ERROR',
-        message: error.message.replace('CONTENT_ERROR: ', '')
-      });
+    if (error instanceof AIError) {
+      // Code and status only: provider messages are not logged.
+      console.error(`AI suggestions failed: ${error.code} (HTTP ${error.status})`);
+      return res.status(error.status).json({ error: error.code, message: error.message });
     }
-    
-    if (error.message.startsWith('QUOTA_ERROR:')) {
-      return res.status(429).json({
-        error: 'QUOTA_ERROR',
-        message: error.message.replace('QUOTA_ERROR: ', '')
-      });
-    }
-    
-    if (error.message.startsWith('API_ERROR:')) {
-      return res.status(500).json({
-        error: 'API_ERROR',
-        message: error.message.replace('API_ERROR: ', '')
-      });
-    }
-
-    if (error.message.startsWith('RATE_ERROR:')) {
-      return res.status(429).json({
-        error: 'RATE_ERROR',
-        message: error.message.replace('RATE_ERROR: ', '')
-      });
-    }
-
-    // Generic error fallback
-    return res.status(500).json({
-      error: 'UNKNOWN_ERROR',
-      message: 'An unexpected error occurred. Please try again.'
-    });
+    console.error("AI suggestions failed:", error && error.name ? error.name : "unknown error");
+    return res.status(500).json({ error: "UNKNOWN_ERROR", message: "An unexpected error occurred. Please try again." });
   }
-} 
+}

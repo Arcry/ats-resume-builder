@@ -3,13 +3,19 @@
   "version": "0.3.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -H 127.0.0.1",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "next start -H 127.0.0.1",
+    "lint": "next lint",
+    "build:prod": "NEXT_DIST_DIR=.next-prod next build",
+    "start:prod": "NEXT_DIST_DIR=.next-prod next start -H 127.0.0.1 -p 3030",
+    "app:install": "sh scripts/app.sh install",
+    "app:restart": "sh scripts/app.sh restart",
+    "app:status": "sh scripts/app.sh status",
+    "app:logs": "sh scripts/app.sh logs",
+    "app:uninstall": "sh scripts/app.sh uninstall"
   },
   "dependencies": {
-    "@google/generative-ai": "^0.21.0",
     "@tsparticles/engine": "^3.8.1",
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.8.1",
