@@ -51,8 +51,8 @@ Requires Node.js 18 or later.
 
 1. Clone the repository and go to the project directory:
 ```bash
-git clone https://github.com/Arcry/free-resume-maker.git
-cd free-resume-maker
+git clone https://github.com/Arcry/ats-resume-builder.git
+cd ats-resume-builder
 ```
 
 2. Install dependencies:
