@@ -14,12 +14,11 @@ import DateRange from "../utility/DateRange";
 import ContactInfo from "./ContactInfo";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { ResumeContext } from "../../pages/builder";
 import dynamic from "next/dynamic";
 import Language from "./Language";
 import Certification from "./Certification";
-import TemplateTwo from "./TemplateTwo";
 import TemplateATS from "./TemplateATS";
 import { TEMPLATES, DEFAULT_THEME, resolveTheme } from "../utility/templates";
 
@@ -58,20 +57,6 @@ const Preview = () => {
     "--resume-bg": theme.background || undefined,
   };
   
-  // Initialize sectionOrder with all sections including certifications
-  const defaultSections = [
-    "summary",
-    "education",
-    "projects",
-    "experience",
-    "skills",
-    "softskills",
-    "languages",
-    "certifications"
-  ];
-
-  const [sectionOrder, setSectionOrder] = useState(defaultSections);
-
   const icons = [
     { name: "github", icon: <FaGithub /> },
     { name: "linkedin", icon: <FaLinkedin /> },
@@ -138,37 +123,10 @@ const Preview = () => {
     }
   };
 
-  const handleTemplateTwoDragEnd = (result) => {
-    if (!result.destination) return;
-    
-    const items = Array.from(sectionOrder);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
-    
-    
-    setSectionOrder(items);
-    localStorage.setItem('sectionOrder', JSON.stringify(items));
-  };
-
-  useEffect(() => {
-    const savedOrder = localStorage.getItem('sectionOrder');
-    if (savedOrder) {
-      // Ensure certifications is included in the saved order
-      const parsedOrder = JSON.parse(savedOrder);
-      if (!parsedOrder.includes("certifications")) {
-        parsedOrder.push("certifications");
-      }
-      setSectionOrder(parsedOrder);
-    } else {
-      // If no saved order, use default sections
-      localStorage.setItem('sectionOrder', JSON.stringify(defaultSections));
-    }
-  }, []);
-
   return (
     <div className="md:max-w-[60%] sticky top-0 preview rm-padding-print p-6 md:overflow-y-scroll md:h-screen">
       <A4PageWrapper style={themeStyle}>
-        <DragDropContext onDragEnd={currentTemplate === "template1" ? onDragEnd : currentTemplate === "template2" ? handleTemplateTwoDragEnd : () => {}}>
+        <DragDropContext onDragEnd={currentTemplate === "template1" ? onDragEnd : () => {}}>
           {currentTemplate === "ats" ? (
             <TemplateATS />
           ) : currentTemplate === "template1" ? (
@@ -460,27 +418,7 @@ const Preview = () => {
               </div>
             </div>
           ) : (
-            <TemplateTwo
-              namedata={resumeData.name}
-              positiondata={resumeData.position}
-              contactdata={resumeData.contactInformation}
-              emaildata={resumeData.email}
-              addressdata={resumeData.address}
-              telicon={<MdPhone />}
-              emailicon={<MdEmail />}
-              addressicon={<MdLocationOn />}
-              summarydata={resumeData.summary}
-              educationdata={resumeData.education}
-              projectsdata={resumeData.projects}
-              workExperiencedata={resumeData.workExperience}
-              skillsdata={resumeData.skills}
-              languagesdata={resumeData.languages}
-              certificationsdata={resumeData.certifications}
-              sectionOrder={sectionOrder}
-              onDragEnd={handleTemplateTwoDragEnd}
-              resumeData={resumeData}
-              setResumeData={setResumeData}
-            />
+            <TemplateATS layout="single" />
           )}
         </DragDropContext>
       </A4PageWrapper>

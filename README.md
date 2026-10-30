@@ -7,11 +7,11 @@ Free, open-source resume (CV) builder that runs locally. Fill in a form, watch t
 ## Key features
 
 - **ATS template by default**: two columns, static layout, PDF text in reading order; dates printed as "Oct 2018 - Sep 2022", "Present" when the end date is empty
-- **Template & colours**: switch between *ATS*, *Classic* (drag-and-drop entries, editable headings) and *Single column*; pick an accent colour (name, section headings, underlines) and a page background from presets or any custom colour. The choice is stored in the resume JSON (`theme`), so Save/Load Data keeps it
+- **Template & colours**: switch between *ATS*, *Classic* (drag-and-drop entries, editable headings) and *Single column* (the ATS layout in one column); pick an accent colour (name, section headings, underlines) and a page background from presets or any custom colour. The choice is stored in the resume JSON (`theme`), so Save/Load Data keeps it
 - **AI suggestions** for text fields with the provider and model of your choice (OpenAI, OpenRouter, Anthropic, Gemini, Groq, DeepSeek, Mistral, local Ollama / LM Studio, or any OpenAI-compatible server); provider and model are remembered by the browser
 - **Live preview** while you type; Enter in a field never reloads the page
 - **Save / Load Data**: the whole resume as a JSON file
-- **Drag & drop** sections and entries in the Classic and Single column templates
+- **Drag & drop** entries in the Classic template
 - **Export to PDF** with the browser print dialog
 - **Run as a Mac app**: production build served by a launchd agent on port 3030 and a Dock icon via Safari or Chrome (see below)
 
@@ -32,7 +32,7 @@ Sample resume (fictional) in the three templates; *Classic* with the Navy accent
 ATS and AI resume checkers read the text layer of the PDF, not the picture. The builder is set up so that this text is clean:
 
 - **Real text, not images**: the PDF comes from the browser print dialog, so every word can be selected, copied and searched
-- **Reading order**: in the *ATS* template the extracted text comes out as name, contacts, summary, then the left column and the right column, each section in one piece; the layout is static (no drag-and-drop), so the order is predictable
+- **Reading order**: in the *ATS* template the extracted text comes out as name, contacts, summary, then the left column and the right column, each section in one piece; the layout is static (no drag-and-drop), so the order is predictable; in the *Single column* template the sections follow one another top to bottom: Summary, Skills, Work Experience, Projects, Education, Certifications, Languages
 - **Standard section headings**: Summary, Work Experience, Education, Projects, Skills, Languages, Certifications
 - **One date format**: "Oct 2018 - Sep 2022", "Present" for a current role
 - **Plain contacts**: phone, email, location and links are text, not icons only

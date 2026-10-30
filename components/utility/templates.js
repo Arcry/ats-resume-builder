@@ -14,7 +14,7 @@ export const TEMPLATES = [
   {
     id: "template2",
     label: "Single column",
-    title: "Single column: movable sections",
+    title: "Single column: static layout, PDF text in reading order",
   },
 ];
 
